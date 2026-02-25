@@ -229,9 +229,27 @@ for (let i = 0; i < 120; i++) {
 
 function createBricks() {
   bricks = [];
-  let specialIndices = [];
-  // Place special words at specific positions like the image
-  // Row 0 col 0 = "Move", Row 1 col 3 = "Secret", Row 3 col 5 = "Moment"
+  
+  // 1. 상단 중앙의 '???' 블록 (AI의 깨달음 오마쥬)
+  // 나머지 블록들과 차별화하기 위해 하얀색(White) 네온 효과를 주었습니다.
+  const aiColor = { main: '#ffffff', glow: 'rgba(255,255,255,0.8)' };
+  
+  bricks.push({
+    x: (W - BRICK_W) / 2, // 화면 가로 중앙 정렬
+    y: 60,                // 상단 여백에 배치
+    w: BRICK_W,
+    h: BRICK_H,
+    color: aiColor,
+    alive: true,
+    word: '???',          // 요청하신 텍스트
+    hp: 3,                // 주인공 블록이니 조금 더 단단하게 설정 (3번 맞춰야 깨짐)
+    shake: 0,
+    glowPulse: 0
+  });
+
+  // 2. 기존 4줄 블록 구성 (위치를 아래로 하향 조정)
+  const NEW_OFFSET_Y = 160; // 기존 50에서 160으로 내려서 상단 공백 확보
+  
   const specials = [
     { r: 0, c: 0, word: 'Move' },
     { r: 1, c: 3, word: 'Secret' },
@@ -242,9 +260,10 @@ function createBricks() {
     for (let c = 0; c < COLS; c++) {
       const color = BRICK_COLORS[(r + c) % BRICK_COLORS.length];
       const special = specials.find(s => s.r === r && s.c === c);
+      
       bricks.push({
         x: BRICK_OFFSET_X + c * (BRICK_W + BRICK_PAD),
-        y: BRICK_OFFSET_Y + r * (BRICK_H + BRICK_PAD),
+        y: NEW_OFFSET_Y + r * (BRICK_H + BRICK_PAD), // 변경된 높이 적용
         w: BRICK_W,
         h: BRICK_H,
         color: color,
