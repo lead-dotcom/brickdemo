@@ -241,7 +241,7 @@ function createBricks() {
     h: BRICK_H,
     color: aiColor,
     alive: true,
-    word: '???',          // 요청하신 텍스트
+    word: 'Solve everything else',          // 요청하신 텍스트
     hp: 3,                // 주인공 블록이니 조금 더 단단하게 설정 (3번 맞춰야 깨짐)
     shake: 0,
     glowPulse: 0
@@ -251,9 +251,9 @@ function createBricks() {
   const NEW_OFFSET_Y = 160; // 기존 50에서 160으로 내려서 상단 공백 확보
   
   const specials = [
-    { r: 0, c: 0, word: 'Move' },
-    { r: 1, c: 3, word: 'Secret' },
-    { r: 3, c: 5, word: 'Moment' },
+    { r: 0, c: 0, word: 'Move 37' },
+    { r: 1, c: 3, word: 'Secret Keeper' },
+    { r: 3, c: 5, word: 'Apollo 11 Moment' },
   ];
 
   for (let r = 0; r < ROWS; r++) {
